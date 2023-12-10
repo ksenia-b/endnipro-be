@@ -24,12 +24,20 @@ export class AppService {
     return await this.projectModel.countDocuments();
   }
 
-  async findAll(skip = 0, limit?: number) {
-    console.log("skip, limit = ", skip, limit)
-    const query = await this.projectModel.find().sort({ dateAdded: -1 }).limit(limit).skip(skip)
+  async findProjects(query = "", page?: number) {
+    console.log("skip, limit = ", query, page)
+    return await this.projectModel.find(
+      { $text: { $search: query } }
+    ).sort({ dateAdded: -1 }).skip(page)
+    //.sort({ dateAdded: -1 }).limit(limit).skip(skip)
 
-    return query;
+
   }
+
+  async findAll() {
+    return await this.projectModel.find().exec();
+  }
+
 
 
   async findOne(id: string): Promise<Project> {

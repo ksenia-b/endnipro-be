@@ -18,12 +18,25 @@ export class AppController {
     return await this.appService.createProject(SendProjectDto)
   }
 
+  // @Get('projects')
+  // async findProjects(@Query() { skip, limit }): Promise<Project[]> {
+  //   // const count = (await this.appService.findAll(skip, limit)).length;
+  //   return this.appService.findProjects(skip, limit);
+  // }
+
   @Get('projects')
+  async findProjects(@Query() { query, page }): Promise<Project[]> {
+    // const count = (await this.appService.findAll(skip, limit)).length;
+    return this.appService.findProjects(query, page);
+  }
+
+
+  @Get('projects/all')
   async findAll(@Query() { skip, limit }): Promise<Project[]> {
     // const count = (await this.appService.findAll(skip, limit)).length;
-
-    return this.appService.findAll(skip, limit);
+    return this.appService.findAll();
   }
+
 
   @Get('projects/count')
   async countAll() {

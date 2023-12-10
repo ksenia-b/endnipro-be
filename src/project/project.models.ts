@@ -8,7 +8,7 @@ export class Project {
     @Prop()
     id: string;
 
-    @Prop()
+    @Prop({ index: true, text: true })
     title: string;
 
     @Prop()
